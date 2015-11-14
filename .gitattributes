@@ -1,17 +1,39 @@
-# Auto detect text files and perform LF normalization
+# Handle line endings automatically for files detected as text
+# and leave all files detected as binary untouched.
 * text=auto
 
-# Custom for Visual Studio
-*.cs     diff=csharp
+*.java   text diff=java eol=lf
+*.html   text diff=html eol=lf
+*.css    text eol=lf
+*.js     text eol=lf
+*.sql    text
 
-# Standard to msysgit
-*.doc	 diff=astextplain
-*.DOC	 diff=astextplain
-*.docx diff=astextplain
-*.DOCX diff=astextplain
-*.dot  diff=astextplain
-*.DOT  diff=astextplain
-*.pdf  diff=astextplain
-*.PDF	 diff=astextplain
-*.rtf	 diff=astextplain
-*.RTF	 diff=astextplain
+#
+# The above will handle all files NOT found below
+#
+# These files are text and should be normalized (Convert crlf => lf)
+*.df            text
+*.htm           text
+*.json          text
+*.jsp           text
+*.jspf          text
+*.properties    text
+*.sh            text
+*.svg           text
+*.tld           text
+*.txt           text
+*.xml           text
+
+# These files are binary and should be left untouched
+# (binary is a macro for -text -diff)
+*.class         binary
+*.dll           binary
+*.ear           binary
+*.gif           binary
+*.ico           binary
+*.jar           binary
+*.jpg           binary
+*.jpeg          binary
+*.png           binary
+*.so            binary
+*.war           binary

@@ -42,4 +42,9 @@ public class Token {
 	public void setTimeStamp(Date timeStamp) {
 		this.timeStamp = timeStamp;
 	}
+
+	@Override
+	public String toString() {
+		return "Token [sessionId=" + sessionId + ", timeStamp=" + timeStamp.toString() + "]";
+	}
 }

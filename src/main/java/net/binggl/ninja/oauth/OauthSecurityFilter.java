@@ -1,4 +1,4 @@
-package net.binggl.ninja.oauth.filters;
+package net.binggl.ninja.oauth;
 
 import ninja.Context;
 import ninja.Filter;
@@ -12,26 +12,27 @@ import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
 
-import net.binggl.ninja.oauth.SecurityService;
+import static net.binggl.ninja.oauth.Constants.*;
 import net.binggl.ninja.oauth.models.Token;
 import net.binggl.ninja.oauth.util.CommonResults;
 import net.binggl.ninja.oauth.util.InternationalizationHelper;
+import net.binggl.ninja.oauth.util.TokenHelper;
 
 /**
  * check the loged-in user
  * @author henrik
  */
-public class SecurityFilter implements Filter {
+public class OauthSecurityFilter implements Filter {
 
 	// members
 	private static final Logger logger = LoggerFactory
-			.getLogger(SecurityFilter.class);
+			.getLogger(OauthSecurityFilter.class);
 	
 	@Inject
 	CommonResults common;
 
 	@Inject
-	SecurityService securityService;
+	OauthAuthorizationService securityService;
 
 	@Inject
 	InternationalizationHelper i18n;
@@ -49,24 +50,26 @@ public class SecurityFilter implements Filter {
 			// check if the session is available
 			if (context.getSession() == null) {
 				logger.warn("No session available, show view 403");
-				return common.getNoAccessResult(context, "No session available!");
+				return common.getNoAccessResult(context, i18n.getMessage(context, "auth.session.missing"));
 			}
 
 			// check for the login-data in the session
-			Token t = securityService.getToken(context);
+			Token t = TokenHelper.getToken(context);
 			if (t == null) {
 				logger.warn("No token in session, show view 403");
-				return common.getNoAccessResult(context, "No token in session!");
+				return common.getNoAccessResult(context, i18n.getMessage(context, "auth.token.missing"));
 			}
 
 			// check the token TTL
 			DateTime created = new DateTime(t.getTimeStamp());
 			long diff = DateTime.now().getMillis() - created.getMillis();
-			long ttl = ninjaProperties.getIntegerWithDefault("auth.token.ttl", 3600);
+			long ttl = ninjaProperties.getIntegerWithDefault(AUTH_TOKEN_TTL, 3600);
+			
 			if (diff / 1000 > ttl) {
 				logger.warn("The token has expired, show view 403");
 				return common.getNoAccessResult(context, i18n.getMessage(context, "auth.session.expired"));
 			}
+			
 		} catch (Exception EX) {
 			logger.error("Error during security filter check: " + EX.getMessage(), EX);
 			return common.getErrorResult(EX);

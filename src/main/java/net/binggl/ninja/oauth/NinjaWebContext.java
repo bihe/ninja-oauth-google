@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.binggl.ninja.oauth.util;
+package net.binggl.ninja.oauth;
 
 import ninja.Context;
 import ninja.Result;

@@ -2,9 +2,8 @@ package net.binggl.ninja.oauth;
 
 import com.google.inject.AbstractModule;
 
-import net.binggl.ninja.oauth.util.CommonResults;
-import net.binggl.ninja.oauth.util.CustomObjectMapper;
-import net.binggl.ninja.oauth.util.InternationalizationHelper;
+import net.binggl.ninja.oauth.client.OauthClient;
+import net.binggl.ninja.oauth.client.OauthGoogleClient;
 
 public class NinjaOauthModule extends AbstractModule {
 
@@ -12,12 +11,5 @@ public class NinjaOauthModule extends AbstractModule {
     protected void configure() {
     	bind(OauthClient.class).to(OauthGoogleClient.class);
     	bind(OauthAuthorizationService.class).to(OauthAuthorizationServiceImpl.class);
-
-		// helpers
-		bind(InternationalizationHelper.class);
-    	bind(CommonResults.class);
-    	
-    	// startup
-    	bind(CustomObjectMapper.class);
     }
 }

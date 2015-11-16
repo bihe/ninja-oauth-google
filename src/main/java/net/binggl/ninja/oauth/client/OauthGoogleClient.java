@@ -1,4 +1,4 @@
-package net.binggl.ninja.oauth;
+package net.binggl.ninja.oauth.client;
 
 import ninja.Context;
 import ninja.utils.NinjaProperties;
@@ -8,9 +8,9 @@ import org.pac4j.oauth.client.Google2Client;
 
 import com.google.inject.Inject;
 
-import static net.binggl.ninja.oauth.Constants.*;
+import net.binggl.ninja.oauth.NinjaWebContext;
 
-import net.binggl.ninja.oauth.util.NinjaWebContext;
+import static net.binggl.ninja.oauth.Constants.*;
 
 import org.pac4j.oauth.credentials.OAuthCredentials;
 import org.pac4j.oauth.profile.google2.Google2Profile;

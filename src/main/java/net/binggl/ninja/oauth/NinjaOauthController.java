@@ -1,7 +1,7 @@
-package controllers.oauth.google;
+package net.binggl.ninja.oauth;
 
-import static net.binggl.ninja.oauth.Constants.AUTH_FAILURE_URL;
-import static net.binggl.ninja.oauth.Constants.AUTH_SUCCESS_URL;
+import static net.binggl.ninja.oauth.Constants.OAUTH_FAILURE_URL;
+import static net.binggl.ninja.oauth.Constants.OAUTH_SUCCESS_URL;
 
 import org.pac4j.oauth.profile.google2.Google2Profile;
 import org.slf4j.Logger;
@@ -10,11 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import net.binggl.ninja.oauth.OauthAuthorizationService;
-import net.binggl.ninja.oauth.OauthClient;
-import net.binggl.ninja.oauth.models.Token;
-import net.binggl.ninja.oauth.util.InternationalizationHelper;
-import net.binggl.ninja.oauth.util.TokenHelper;
+import net.binggl.ninja.oauth.client.OauthClient;
 import ninja.Context;
 import ninja.Result;
 import ninja.Results;
@@ -26,6 +22,7 @@ public class NinjaOauthController {
 	
 	// members
 	private static final Logger logger = LoggerFactory.getLogger(NinjaOauthController.class);
+	private static final String PARAM_ERROR = "error";
 	
 	// inject
 	
@@ -34,8 +31,6 @@ public class NinjaOauthController {
 	private @Inject	NinjaProperties ninjaProperties;
 	
 	private @Inject	OauthAuthorizationService authorizationService;
-	
-	private @Inject InternationalizationHelper i18n;
 	
 	// methods
 	
@@ -59,34 +54,34 @@ public class NinjaOauthController {
 		Result r = Results.ok();
 		
 		try {
+			FlashScope flashScope = context.getFlashScope();
+			
 			Google2Profile profile = (Google2Profile)oauthClient.getProfile(context);
 			if(profile == null) {
 				logger.error("Could not get a profile from oauth service - null!");
-				throw new NullPointerException("No profile provided from authentication service!");
+				String reason = context.getParameter(PARAM_ERROR);
+				logger.debug("Got reason from backend {}", reason);
+				flashScope.error("No profile provided from authentication service! " + "(" + reason + ")");
+				return Results.redirect(ninjaProperties.get(OAUTH_FAILURE_URL));
 			}
 			logger.info("Got a profile from oauth provider; email: {}", profile.getEmail());
 			
-			Token userToken = authorizationService.lookupProfile(profile);
-			if(userToken == null) {
-				logger.error("Could not lookup given profile {} - token is null!", profile);
-				throw new NullPointerException("No token for given profile available! " + profile.toString());
+			boolean validProfile = authorizationService.lookupAndProcessProfile(context, profile);
+			if(!validProfile) {
+				logger.error("Could not lookup given profile {}!", profile);
+				flashScope.error("Could not lookup and process the profile! " + profile.getEmail());
+				return Results.redirect(ninjaProperties.get(OAUTH_FAILURE_URL));
 			}
 			
-			logger.info("Set token {}", userToken.toString());
-			TokenHelper.setToken(context, userToken);
-			
-			r = Results.redirect(ninjaProperties.get(AUTH_SUCCESS_URL));
+			r = Results.redirect(ninjaProperties.get(OAUTH_SUCCESS_URL));
 
 		} catch(Exception EX) {
-			
 			logger.error("Could not authenticate the user {}; stack: {}", EX.getMessage(), EX);
 			
 			FlashScope flashScope = context.getFlashScope();
-			String flashMessage = i18n.getMessage(context, "auth.login.error", EX.getMessage());
-			flashScope.error(flashMessage);
+			flashScope.error(EX.getMessage());
 			
-			r = Results.redirect(ninjaProperties.get(AUTH_FAILURE_URL));
-			
+			r = Results.redirect(ninjaProperties.get(OAUTH_FAILURE_URL));
 		}
 		return r;
 	}

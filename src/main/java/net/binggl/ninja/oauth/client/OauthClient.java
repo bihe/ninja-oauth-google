@@ -1,4 +1,4 @@
-package net.binggl.ninja.oauth;
+package net.binggl.ninja.oauth.client;
 
 import ninja.Context;
 

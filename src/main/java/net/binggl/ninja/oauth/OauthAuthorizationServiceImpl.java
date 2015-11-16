@@ -1,27 +1,26 @@
 package net.binggl.ninja.oauth;
 
-import java.util.Date;
-
 import org.apache.commons.lang3.StringUtils;
 import org.pac4j.oauth.profile.google2.Google2Profile;
 
-import net.binggl.ninja.oauth.models.Token;
+import ninja.Context;
+
 
 /**
- * implement the security-service; store the ids in the session
+ * lookup the oauth profile and process it
  * @author henrik
  */
 public class OauthAuthorizationServiceImpl implements OauthAuthorizationService {
 
 	@Override
-	public Token lookupProfile(Google2Profile profile) {
-		Token t = null;
+	public boolean lookupAndProcessProfile(Context context, Google2Profile profile) {
+		boolean profileValid = false;
 		if(profile != null && StringUtils.isNotEmpty(profile.getAccessToken())) {
-			t = new Token();
-			t.setTimeStamp(new Date());
-			t.setSessionId(profile.getId());
+			profileValid = true;
+			
+			context.getSession().put("id", profile.getId());
 		}
 		
-		return t;
+		return profileValid;
 	}
 }

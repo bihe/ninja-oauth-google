@@ -2,21 +2,21 @@ package net.binggl.ninja.oauth;
 
 import org.pac4j.oauth.profile.google2.Google2Profile;
 
-import net.binggl.ninja.oauth.models.Token;
+import ninja.Context;
 
 /**
  * the service is used to lookup the provided oauth profile in a
- * profile store. If the profile is valid create a Token which is 
- * stored in the session
+ * profile store. The logic determines if the profile is valid and
+ * processes the profile date (e.g. store it in session, ...)
  * @author henrik
  */
 public interface OauthAuthorizationService {
 
 	/**
-	 * lookup the profile in a store and create a token
+	 * lookup the profile in a store and handle further processing
 	 * @param profile
 	 * @return
 	 */
-	Token lookupProfile(Google2Profile profile);
+	boolean lookupAndProcessProfile(Context context, Google2Profile profile);
 	
 }

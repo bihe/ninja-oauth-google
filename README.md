@@ -2,6 +2,7 @@ Google-Oauth2 module for Ninja framework
 =====================
 This is a plugable module for the [Ninja web framework](http://www.ninjaframework.org/) which supports Google oauth2 authentication.
 
+[![Build Status](https://travis-ci.org/bihe/ninja-oauth-google.png)](https://travis-ci.org/bihe/ninja-oauth-google)
 [![license](http://img.shields.io/badge/license-apache_2.0-red.svg?style=flat)](https://raw.githubusercontent.com/bihe/ninja-mongodb/master/LICENSE)
 
 Setup

@@ -10,6 +10,5 @@ public class NinjaOauthModule extends AbstractModule {
 	@Override
     protected void configure() {
     	bind(OauthClient.class).to(OauthGoogleClient.class);
-    	bind(OauthAuthorizationService.class).to(OauthAuthorizationServiceImpl.class);
     }
 }

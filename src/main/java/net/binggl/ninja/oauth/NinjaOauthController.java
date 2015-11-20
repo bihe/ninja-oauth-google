@@ -66,6 +66,11 @@ public class NinjaOauthController {
 			}
 			logger.info("Got a profile from oauth provider; email: {}", profile.getEmail());
 			
+			// fallback: if no OauthAuthorizationService is injected, use the default implementation
+			if(this.authorizationService == null) {
+				this.authorizationService = new OauthAuthorizationServiceImpl();
+			}
+			
 			boolean validProfile = authorizationService.lookupAndProcessProfile(context, profile);
 			if(!validProfile) {
 				logger.error("Could not lookup given profile {}!", profile);

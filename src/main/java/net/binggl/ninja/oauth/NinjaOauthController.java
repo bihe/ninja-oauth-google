@@ -38,7 +38,7 @@ public class NinjaOauthController {
 	 * start the OAUTH process by sending the user to the auth-system url
 	 * @param context environment context (request, repsonse, session, ...)
 	 * @return redirects to the oauth
-	 * @throws Throwable 
+	 * @throws Throwable invalid url
 	 */
 	public Result startauth(Context context) throws Throwable {
 		return Results.redirect(oauthClient.getRedirectUrl(context));
@@ -48,7 +48,7 @@ public class NinjaOauthController {
 	 * process the OAuth callback
 	 * @param context environment context (request, repsonse, session, ...)
 	 * @return on success forward to a configured url
-	 * @throws Throwable
+	 * @throws Throwable error during authentication
 	 */
 	public Result oauth2callback(Context context) throws Throwable {
 		Result r = Results.ok();

@@ -30,7 +30,7 @@ import java.io.*;
 import java.util.Map;
 
 /**
- * @see https://raw.githubusercontent.com/makotan/ninja-pac4j/master/src/main/java/com/makotan/ninja/authz/pac4j/NinjaWebContext.java
+ *  found here: https://raw.githubusercontent.com/makotan/ninja-pac4j/master/src/main/java/com/makotan/ninja/authz/pac4j/NinjaWebContext.java
  */
 public class NinjaWebContext implements WebContext {
     private static final Logger logger = LoggerFactory.getLogger(NinjaWebContext.class);

@@ -14,8 +14,9 @@ public interface OauthAuthorizationService {
 
 	/**
 	 * lookup the profile in a store and handle further processing
-	 * @param profile
-	 * @return
+	 * @param context Ninja Context object
+	 * @param profile a Google oauth Profile
+	 * @return true or false if the lookup was successful
 	 */
 	boolean lookupAndProcessProfile(Context context, Google2Profile profile);
 	

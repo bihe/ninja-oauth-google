@@ -12,21 +12,23 @@ public interface OauthClient {
 
 	/**
 	 * get the redirect URL for the auth process
-	 * @param context
-	 * @return
+	 * @param context the Ninja Context
+	 * @return the oauth redirect url
 	 */
 	String getRedirectUrl(Context context);
 
 	/**
 	 * get a security OAuthClient
-	 * @return
+	 * @return a pac4j client
 	 */
 	@SuppressWarnings("rawtypes")
 	Client getClient();
 
 	/**
 	 * get the OAuthProfile
-	 * @return
+	 * @param context the Ninja Context
+	 * @return a Google oauth2 profile
+	 * @throws Throwable error during fetch profile
 	 */
 	OAuth20Profile getProfile(Context context) throws Throwable;
 }

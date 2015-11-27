@@ -8,7 +8,7 @@ This is a plugable module for the [Ninja web framework](http://www.ninjaframewor
 Setup
 -----
 
-1) Add the ninja-mongodb dependency to your pom.xml:
+1) Add the ninja-google-oauth dependency to your pom.xml:
 
 	<dependency>
 	    <groupId>net.binggl</groupId>

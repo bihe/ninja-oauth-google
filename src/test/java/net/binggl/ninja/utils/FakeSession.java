@@ -68,4 +68,8 @@ public class FakeSession implements Session {
 		return this.store == null || this.store.size() == 0;
 	}
 
+	@Override
+	public void setExpiryTime(Long arg0) {
+	}
+
 }

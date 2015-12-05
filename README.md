@@ -13,7 +13,7 @@ Setup
 	<dependency>
 	    <groupId>net.binggl</groupId>
 	    <artifactId>ninja-google-oauth-module</artifactId>
-	    <version>1.0.0</version>
+	    <version>1.0.1</version>
 	</dependency>
 	
 2) Google Developer Console

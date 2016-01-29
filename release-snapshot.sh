@@ -1,2 +1,2 @@
 #!/bin/sh
-mvn clean deploy
+mvn clean compile deploy

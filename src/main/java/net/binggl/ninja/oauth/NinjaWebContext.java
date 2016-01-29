@@ -20,6 +20,7 @@ import ninja.Context;
 import ninja.Result;
 import ninja.Results;
 
+import org.pac4j.core.context.Cookie;
 import org.pac4j.core.context.WebContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import javax.xml.bind.DatatypeConverter;
 
 import java.io.*;
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -128,4 +130,60 @@ public class NinjaWebContext implements WebContext {
 	public int getServerPort() {
 		return 0;
 	}
+
+	@Override
+	public void addResponseCookie(Cookie arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getPath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getRemoteAddr() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object getRequestAttribute(String arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<Cookie> getRequestCookies() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object getSessionIdentifier() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isSecure() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setRequestAttribute(String arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setResponseContentType(String arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 }

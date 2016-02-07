@@ -73,7 +73,7 @@ public class NinjaOauthController {
 			
 			boolean validProfile = authorizationService.lookupAndProcessProfile(context, profile);
 			if(!validProfile) {
-				logger.error("Could not lookup given profile {}!", profile);
+				logger.error("Could not lookup given profile name={} / email={}!", profile.getDisplayName(), profile.getEmail());
 				flashScope.error("Could not lookup and process the profile! " + profile.getEmail());
 				return Results.redirect(ninjaProperties.get(OAUTH_FAILURE_URL));
 			}

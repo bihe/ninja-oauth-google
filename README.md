@@ -4,6 +4,7 @@ This is a plugable module for the [Ninja web framework](http://www.ninjaframewor
 
 [![Build Status](https://travis-ci.org/bihe/ninja-oauth-google.png)](https://travis-ci.org/bihe/ninja-oauth-google)
 [![license](http://img.shields.io/badge/license-apache_2.0-red.svg?style=flat)](https://raw.githubusercontent.com/bihe/ninja-mongodb/master/LICENSE)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.binggl/ninja-google-oauth-module/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/net.binggl/ninja-google-oauth-module/badge.svg?style=flat)
 
 Setup
 -----
@@ -13,7 +14,7 @@ Setup
 	<dependency>
 	    <groupId>net.binggl</groupId>
 	    <artifactId>ninja-google-oauth-module</artifactId>
-	    <version>1.0.2</version>
+	    <version>x.x.x</version>
 	</dependency>
 	
 2) Google Developer Console

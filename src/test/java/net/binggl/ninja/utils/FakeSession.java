@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import ninja.Context;
-import ninja.Result;
 import ninja.session.Session;
 
 /**
@@ -40,10 +39,6 @@ public class FakeSession implements Session {
 	}
 
 	@Override
-	public void save(Context context, Result result) {
-	}
-
-	@Override
 	public void put(String key, String value) {
 		this.store.put(key, value);
 	}
@@ -72,4 +67,8 @@ public class FakeSession implements Session {
 	public void setExpiryTime(Long arg0) {
 	}
 
+	@Override
+	public void save(Context arg0) {
+		
+	}
 }

@@ -15,11 +15,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.binggl</groupId>
 	<artifactId>ninja-google-oauth-module</artifactId>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.3</version>
 	<packaging>jar</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<ninjaframework.version>5.3.0</ninjaframework.version>
+		<ninjaframework.version>5.3.1</ninjaframework.version>
 		<pac4j.version>1.8.5</pac4j.version>
 	</properties>
 	<name>Ninja Framework Google oauth2 Module</name>

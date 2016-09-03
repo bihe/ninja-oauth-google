@@ -4,6 +4,9 @@ import ninja.Context;
 import ninja.utils.NinjaProperties;
 
 import org.apache.commons.lang3.StringUtils;
+import org.pac4j.core.client.RedirectAction;
+import org.pac4j.core.client.RedirectAction.RedirectType;
+import org.pac4j.core.exception.HttpAction;
 import org.pac4j.oauth.client.Google2Client;
 
 import com.google.inject.Inject;
@@ -54,7 +57,18 @@ public class OauthGoogleClient implements OauthClient {
 	public String getRedirectUrl(Context context) {
 		this.initClient();
 		NinjaWebContext webCtx = new NinjaWebContext(context);
-		return client.getRedirectionUrl(webCtx);
+		RedirectAction action;
+		try {
+			action = client.getRedirectAction(webCtx);
+			
+			if(action.getType() == RedirectType.REDIRECT) {
+				return action.getLocation();
+			}
+			
+		} catch (HttpAction e) {
+			new RuntimeException("Could not get a redirect URL " + e.getMessage());
+		}
+		return "";
 	}
 
 	@Override

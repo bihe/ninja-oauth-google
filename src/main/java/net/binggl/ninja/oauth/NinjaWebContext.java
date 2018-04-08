@@ -22,6 +22,7 @@ import ninja.Results;
 
 import org.pac4j.core.context.Cookie;
 import org.pac4j.core.context.WebContext;
+import org.pac4j.core.context.session.SessionStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,6 +74,11 @@ public class NinjaWebContext implements WebContext {
     }
 
     @Override
+    public void setSessionStore(SessionStore store) {
+	throw new UnsupportedOperationException("Cannot replace the session store in Ninja.");
+    }
+    
+    @Override
     public Object getSessionAttribute(String name) {
         String data = context.getSession().get(name);
         if (data == null) {
@@ -85,6 +91,16 @@ public class NinjaWebContext implements WebContext {
         } catch (Exception e) {
             throw new RuntimeException("unexpected exception", e);
         }
+    }
+
+    @Override
+    public String getSessionIdentifier() {
+	return context.getSession().getId();
+    }
+    
+    @Override
+    public SessionStore getSessionStore() {
+	throw new UnsupportedOperationException("Cannot get the session store in Ninja.");
     }
 
     @Override
@@ -161,11 +177,11 @@ public class NinjaWebContext implements WebContext {
 		return null;
 	}
 
-	@Override
-	public Object getSessionIdentifier() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	// @Override
+	// public Object getSessionIdentifier() {
+	// 	// TODO Auto-generated method stub
+	// 	return null;
+	// }
 
 	@Override
 	public boolean isSecure() {

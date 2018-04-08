@@ -4,9 +4,9 @@ import ninja.Context;
 import ninja.utils.NinjaProperties;
 
 import org.apache.commons.lang3.StringUtils;
-import org.pac4j.core.client.RedirectAction;
-import org.pac4j.core.client.RedirectAction.RedirectType;
 import org.pac4j.core.exception.HttpAction;
+import org.pac4j.core.redirect.RedirectAction;
+import org.pac4j.core.redirect.RedirectAction.RedirectType;
 import org.pac4j.oauth.client.Google2Client;
 
 import com.google.inject.Inject;
@@ -15,7 +15,7 @@ import net.binggl.ninja.oauth.NinjaWebContext;
 
 import static net.binggl.ninja.oauth.Constants.*;
 
-import org.pac4j.oauth.credentials.OAuthCredentials;
+import org.pac4j.oauth.credentials.OAuth20Credentials;
 import org.pac4j.oauth.profile.google2.Google2Profile;
 
 /**
@@ -81,7 +81,7 @@ public class OauthGoogleClient implements OauthClient {
 	public Google2Profile getProfile(Context context) throws Throwable {
 		this.initClient();
 		NinjaWebContext webCtx = new NinjaWebContext(context);
-		OAuthCredentials credentials = this.client.getCredentials(webCtx);
+		OAuth20Credentials credentials = this.client.getCredentials(webCtx);
 		Google2Profile profile = client.getUserProfile(credentials, webCtx);
 
 		return profile;

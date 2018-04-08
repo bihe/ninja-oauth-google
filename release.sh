@@ -1,2 +1,2 @@
 #!/bin/sh
-mvn clean compile deploy -P release-sign-artifacts
+./mvnw clean compile deploy -P release-sign-artifacts
